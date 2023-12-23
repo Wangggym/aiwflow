@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "aiwflow"
+version = "0.1.5"
+description = "Optimize your workflow effortlessly using with jira and github, seamlessly integrating with the power of OpenAI API."
+authors = ["wangym <wangym0203@gmail.com>"]
+license = "LICENSE"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = "^0.9.0"
+jira = {extras = ["cli"], version = "^3.5.2"}
+openai = "^1.5.0"
+httpx = {extras = ["socks"], version = "^0.25.2"}
+
+[tool.poetry.scripts]
+aiwflow = "aiwflow.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
