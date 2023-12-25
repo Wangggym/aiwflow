@@ -13,6 +13,23 @@ def pr_create(ticket: str, issue_desc: str = None):
         print(f"{issue_desc}")
         return
 
+    issue_desc = JiraService().get_issue_summary(id=ticket)
+
+    if contains_only_english_with_special_chars(issue_desc) is True:
+        print(f"{issue_desc}")
+        return
+
+    translated_desc = AI().translate(desc=issue_desc)
+    print(f"{translated_desc}")
+    return
+
+
+@main.command()
+def pr_create_v2(ticket: str, issue_desc: str = None):
+    if issue_desc is not None:
+        print(f"{issue_desc}")
+        return
+
     spinner = Spinner(JiraService().get_issue_summary, **{"id": ticket})
     issue_desc = spinner.result
 
@@ -26,6 +43,7 @@ def pr_create(ticket: str, issue_desc: str = None):
     spinnerAI = Spinner(AI().translate, **{"desc": issue_desc})
     print(f"{spinnerAI.result}")
     return
+
 
 @main.command()
 def me():

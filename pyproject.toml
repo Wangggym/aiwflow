@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiwflow"
-version = "0.1.5"
+version = "0.1.9"
 description = "Optimize your workflow effortlessly using with jira and github, seamlessly integrating with the power of OpenAI API."
 authors = ["wangym <wangym0203@gmail.com>"]
 license = "LICENSE"
