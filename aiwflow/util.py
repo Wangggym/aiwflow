@@ -6,8 +6,8 @@ def get_env_variable(variable_name: str):
     my_variable = os.environ.get(variable_name)
     if my_variable is not None:
         return my_variable
-    else:
-        print(f"Variable {variable_name} not found in the environment.")
+    # else:
+    #     print(f"Variable {variable_name} not found in the environment.")
 
 
 def contains_only_english_with_special_chars(text):
