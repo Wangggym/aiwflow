@@ -19,3 +19,8 @@ def contains_only_english_with_special_chars(text):
         if (ord(char) < 0x20 or ord(char) > 0x7E) and char not in allowed_special_chars:
             return False
     return True
+
+
+def is_long_desc(text: str) -> bool:
+    length_threshold = 100
+    return len(text) > length_threshold

@@ -6,7 +6,7 @@ OPENAI_KEY = get_env_variable('OPENAI_KEY')
 
 
 class AI:
-    translate_prompt = "You're a multilingual assistant skilled in translating content into concise English pull request titles, within 8 words and without any punctuation."
+    translate_prompt = "You're a multilingual assistant skilled in translating content into concise English github pull request titles, within 8 words, and without any punctuation."
 
     def __init__(self) -> None:
         self.client = OpenAI(api_key=OPENAI_KEY)
