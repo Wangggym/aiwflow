@@ -3,7 +3,7 @@ import json
 from aiwflow.Spinner import Spinner
 from aiwflow.JiraService import JiraService
 from aiwflow.llm import AI
-from aiwflow.util import contains_only_english_with_special_chars, get_env_variable
+from aiwflow.util import contains_only_english_with_special_chars, get_env_variable, is_long_desc
 
 main = typer.Typer()
 
@@ -38,16 +38,8 @@ def pr_create(ticket: str, issue_desc: str = None):
     return
 
 
-@main.command()
-def issue_desc(ticket: str):
-    issue = Issue()
-    try:
-        issue.issue_desc = JiraService().get_issue_summary(id=ticket)
-    except Exception as error:
-        print(json.dumps(issue.__dict__, ensure_ascii=False))
-        return
-
-    if contains_only_english_with_special_chars(issue.issue_desc) is True:
+def summarize(issue: Issue):
+    if contains_only_english_with_special_chars(issue.issue_desc) is True and is_long_desc(issue.issue_desc) is False:
         issue.need_translate = False
         print(json.dumps(issue.__dict__, ensure_ascii=False))
         return
@@ -59,6 +51,25 @@ def issue_desc(ticket: str):
     except Exception as error:
         print(json.dumps(issue.__dict__, ensure_ascii=False))
         return
+
+
+@main.command()
+def issue_desc(ticket: str):
+    issue = Issue()
+    try:
+        issue.issue_desc = JiraService().get_issue_summary(id=ticket)
+    except Exception as error:
+        print(json.dumps(issue.__dict__, ensure_ascii=False))
+        return
+
+    summarize(issue)
+
+
+@main.command()
+def summary(desc: str):
+    issue = Issue()
+    issue.issue_desc = desc
+    summarize(issue)
 
 
 @main.command()
