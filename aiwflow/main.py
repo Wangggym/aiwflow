@@ -104,5 +104,25 @@ def jira_add_comment(ticket: str, comment: str):
     JiraService().jira.add_comment(ticket, comment)
 
 
+@main.command()
+def switch(
+    provider: str = typer.Option(
+        ..., 
+        "--provider", 
+        "-p", 
+        help="LLM provider", 
+        case_sensitive=False,
+        show_choices=True,
+        prompt="Select LLM provider",
+        show_default=True
+    )
+):
+    """Switch LLM provider (openai/deepseek/proxy)"""
+    if provider.lower() not in ["openai", "deepseek", "proxy"]:
+        raise typer.BadParameter("Provider must be one of: 'openai', 'deepseek', or 'proxy'")
+    AI.switch_provider(provider.lower())
+    print(f"Switched to {provider.lower()}")
+
+
 if __name__ == "__main__":
     main()
