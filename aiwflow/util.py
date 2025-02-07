@@ -2,12 +2,17 @@ import os
 import string
 
 
-def get_env_variable(variable_name: str):
-    my_variable = os.environ.get(variable_name)
-    if my_variable is not None:
-        return my_variable
-    # else:
-    #     print(f"Variable {variable_name} not found in the environment.")
+def get_env_variable(var_name: str, required: bool = True) -> str:
+    """获取环境变量值
+    
+    Args:
+        var_name: 环境变量名
+        required: 是否必需，如果为True且变量不存在则抛出异常，否则返回None
+    """
+    value = os.environ.get(var_name)
+    if value is None and required:
+        raise ValueError(f"Environment variable {var_name} is not set")
+    return value
 
 
 def contains_only_english_with_special_chars(text):
