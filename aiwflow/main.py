@@ -41,6 +41,7 @@ def pr_create(ticket: str, issue_desc: str = None):
 def summarize(issue: Issue):
     if contains_only_english_with_special_chars(issue.issue_desc) is True and is_long_desc(issue.issue_desc) is False:
         issue.need_translate = False
+        print(f"No need to translate")
         print(json.dumps(issue.__dict__, ensure_ascii=False))
         return
 
